@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var appState: NetworkMonitor
-    @ObservedObject private var contentViewModel = ContentViewModel(pokemonServices: PokemonAPIServices(), networkMonitor: NetworkMonitor.shared)
+    @ObservedObject private var contentViewModel = ContentViewModel(pokemonServices: PokemonAPIServices())
     @State private var isPresentingBagView: Bool = false
     @State private var showToast: Bool = false
     

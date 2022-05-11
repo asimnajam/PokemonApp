@@ -30,8 +30,6 @@ struct ButtonState {
     }
 }
 class ContentViewModel: ObservableObject {
-    
-    private let networkMonitor: NetworkMonitor
     private let pokemonServices: PokemonServices
     @Published private(set) var pokemon: PokemonModel = .empty
     @Published private(set) var internetConnected: Bool = false
@@ -44,11 +42,10 @@ class ContentViewModel: ObservableObject {
        pokemon.id == 0
     }
     
-    init(pokemonServices: PokemonServices, networkMonitor: NetworkMonitor) {
+    init(pokemonServices: PokemonServices) {
         self.pokemonServices = pokemonServices
-        self.networkMonitor = networkMonitor
         
-        switch networkMonitor.status {
+        switch NetworkMonitor.shared.status {
         case .connected:
             internetConnected = true
             searchPokemonButtonState = .seacrhPokemon
@@ -72,10 +69,6 @@ class ContentViewModel: ObservableObject {
     
     func leavePokemon() {
         pokemon = .empty
-    }
-    
-    func internetStatusChanged(status: NetworkStatus) {
-        print(status)
     }
     
     func searchPokemon() {
