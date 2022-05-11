@@ -6,17 +6,22 @@
 //
 
 import Foundation
+import RealmSwift
 
-class PokemonModel: Identifiable {
-    var id: Int = 0
-    var name: String = ""
-    var weight: Int = 0
-    var height: Int = 0
-    var imageURL: String = ""
-    var order: Int = 0
-    var date: Date = Date()
-    var baseExperience: Int = 0
-    var type: [String] = []
+class PokemonModel: Object, Identifiable {
+    @Persisted(primaryKey: true) var id: Int = 0
+    @Persisted var name: String = ""
+    @Persisted var weight: Int = 0
+    @Persisted var height: Int = 0
+    @Persisted var imageURL: String = ""
+    @Persisted var order: Int = 0
+    @Persisted var date: Date = Date()
+    @Persisted var baseExperience: Int = 0
+    @Persisted var type: List<String> = List<String>()
+    
+    override init() {
+        super.init()
+    }
     
     var formattedDateString: String {
         let formatter = DateFormatter()
@@ -45,7 +50,18 @@ class PokemonModel: Identifiable {
         self.order = order
         self.date = date
         self.baseExperience = baseExperience
-        self.type = type
+        
+        let realmTypes = List<String>()
+        realmTypes.append(objectsIn: type)
+        self.type = realmTypes
+    }
+    
+    static func store(model: PokemonModel) {
+        let realm = try! Realm()
+        print(realm.configuration.fileURL!)
+        try! realm.write({
+            realm.add(model, update: .all)
+        })
     }
 }
 
