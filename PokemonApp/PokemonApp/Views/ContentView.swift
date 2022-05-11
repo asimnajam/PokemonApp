@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var contentViewModel = ContentViewModel()
+    @ObservedObject private var contentViewModel = ContentViewModel(pokemonServices: PokemonAPIServices())
     @State private var isPresentingBagView: Bool = false
     @State private var showToast: Bool = false
     
@@ -57,14 +57,14 @@ struct ContentView: View {
 
 extension ContentView {
     var catchPokemon: some View {
-        CapsuleShapedButton(label: "Catch It", color: .green) {
+        CapsuleShapedButton(label: "Catch It!", color: .green) {
             contentViewModel.catchPokemon()
             showToast = true
         }
     }
     
     var leavePokemon: some View {
-        CapsuleShapedButton(label: "Leave Pokemon", color: .red) {
+        CapsuleShapedButton(label: "Leave It!", color: .red) {
             contentViewModel.leavePokemon()
         }
     }
