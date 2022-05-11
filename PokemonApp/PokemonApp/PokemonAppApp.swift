@@ -9,6 +9,12 @@ import SwiftUI
 
 @main
 struct PokemonAppApp: App {
+    @StateObject var networkMonitor = NetworkMonitor.shared
+    
+    init() {
+        networkMonitor.start()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

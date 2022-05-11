@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var contentViewModel = ContentViewModel(pokemonServices: PokemonAPIServices())
+    @EnvironmentObject private var appState: NetworkMonitor
+    @ObservedObject private var contentViewModel = ContentViewModel(pokemonServices: PokemonAPIServices(), networkMonitor: NetworkMonitor.shared)
     @State private var isPresentingBagView: Bool = false
     @State private var showToast: Bool = false
     
     var body: some View {
         NavigationView {
-            
             VStack(alignment: .center, spacing: 5.0) {
                 if !contentViewModel.isEmptyState {
                     HeadingText(title: contentViewModel.pokemon.name)
@@ -27,12 +27,12 @@ struct ContentView: View {
                     infoView
                 } else {
                     CapsuleShapedButton(
-                        label: "Search Pokemon!",
-                        color: Color.indigo,
+                        label: contentViewModel.searchPokemonButtonState.title,
+                        color: contentViewModel.searchPokemonButtonState.color,
                         action: {
                             contentViewModel.searchPokemon()
                         }
-                    )
+                    ).disabled(!contentViewModel.searchPokemonButtonState.enabled)
                     Text("Please tap search button to see POKEMON")
                         .font(.system(size: 12.0))
                         .fontWeight(.ultraLight)
@@ -57,10 +57,10 @@ struct ContentView: View {
 
 extension ContentView {
     var catchPokemon: some View {
-        CapsuleShapedButton(label: "Catch It!", color: .green) {
+        CapsuleShapedButton(label: contentViewModel.catchButtonState.title, color: contentViewModel.catchButtonState.color) {
             contentViewModel.catchPokemon()
             showToast = true
-        }
+        }.disabled(contentViewModel.catchButtonState.enabled)
     }
     
     var leavePokemon: some View {
