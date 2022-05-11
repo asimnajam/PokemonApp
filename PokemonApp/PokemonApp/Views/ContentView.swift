@@ -25,18 +25,25 @@ struct ContentView: View {
                     Spacer()
                     infoView
                 } else {
-                    CapsuleShapedButton(
-                        label: contentViewModel.searchPokemonButtonState.title,
-                        color: contentViewModel.searchPokemonButtonState.color,
-                        action: {
-                            contentViewModel.searchPokemon()
-                        }
-                    ).disabled(!contentViewModel.searchPokemonButtonState.enabled)
-                    Text("Please tap search button to see POKEMON")
-                        .font(.system(size: 12.0))
-                        .fontWeight(.ultraLight)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                    VStack {
+                        CapsuleShapedButton(
+                            label: contentViewModel.searchPokemonButtonState.title,
+                            color: contentViewModel.searchPokemonButtonState.color,
+                            action: {
+                                contentViewModel.searchPokemon()
+                            }
+                        ).disabled(!contentViewModel.searchPokemonButtonState.enabled)
+                        Text("Please tap search button to see POKEMON")
+                            .font(.system(size: 12.0))
+                            .fontWeight(.ultraLight)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        Text(contentViewModel.errorMessage)
+                            .font(.system(size: 14.0))
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
                 }
             }
             .padding(.all, 20)

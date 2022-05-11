@@ -32,10 +32,9 @@ struct ButtonState {
 class ContentViewModel: ObservableObject {
     private let pokemonServices: PokemonServices
     @Published private(set) var pokemon: PokemonModel = .empty
-    @Published private(set) var internetConnected: Bool = false
     @Published private(set) var catchButtonState: ButtonState = .initial
     @Published private(set) var searchPokemonButtonState: ButtonState = .seacrhPokemon
-    
+    @Published private(set) var errorMessage: String = ""
     private(set) var toastMessage: String = ""
     
     var isEmptyState: Bool {
@@ -47,10 +46,8 @@ class ContentViewModel: ObservableObject {
         
         switch NetworkMonitor.shared.status {
         case .connected:
-            internetConnected = true
             searchPokemonButtonState = .seacrhPokemon
         case .disconnected:
-            internetConnected = false
             searchPokemonButtonState = ButtonState(color: .gray, title: "No Internet!", enabled: false)
         }
     }
@@ -73,15 +70,11 @@ class ContentViewModel: ObservableObject {
     
     func searchPokemon() {
         let id = Int.random(in: 1...1000)
-        
-        guard internetConnected else {
-            pokemon = .empty
-            return
-        }
-        
         pokemonServices.fetchPokemon(by: "\(id)") { [weak self] pokemon in
             guard let self = self else { return }
+            
             DispatchQueue.main.async {
+                self.errorMessage = ""
                 self.pokemon = PokemonModel(
                     id: id,
                     name: pokemon.name,
@@ -102,6 +95,9 @@ class ContentViewModel: ObservableObject {
             
         } failure: { error in
             DispatchQueue.main.async {
+                if let error = error as? NetworkingError {
+                    self.errorMessage = error.description
+                }
                 self.pokemon = .empty
             }
         }

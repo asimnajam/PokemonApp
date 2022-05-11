@@ -18,10 +18,9 @@ class PokemonAPIServices: PokemonServices {
         let client = HTTPClient(method: .get, header: nil, query: [:], path: "pokemon/\(id)")
         
         handler.perform(client: client, model: Pokemon.self) { data in
-            print(data)
             success(data)
         } failure: { error in
-            print(error)
+            failure(error)
         }
     }
 }
