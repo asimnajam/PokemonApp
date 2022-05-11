@@ -97,6 +97,36 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8476177E282B92D4005A7E03 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84A918CE282ADA08005AB322 /* ContentView.swift */,
+				8476176F282B6886005A7E03 /* PokemonImageView.swift */,
+				84761773282B6944005A7E03 /* PokemonBagView.swift */,
+				84761777282B69C1005A7E03 /* PokemonBagCellView.swift */,
+				8476177C282B8BA5005A7E03 /* PokemonDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8476177F282B92F7005A7E03 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				84A918F8282AE5C2005AB322 /* ContentViewModel.swift */,
+				84761771282B68AA005A7E03 /* PokemonImageViewModel.swift */,
+				84761775282B6969005A7E03 /* PokemonBagViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		84761780282B9309005A7E03 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				84A918F6282AE59C005AB322 /* Utility.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		84A918C0282ADA08005AB322 = {
 			isa = PBXGroup;
 			children = (
@@ -120,19 +150,13 @@
 		84A918CB282ADA08005AB322 /* PokemonApp */ = {
 			isa = PBXGroup;
 			children = (
+				84761780282B9309005A7E03 /* Helpers */,
+				8476177F282B92F7005A7E03 /* ViewModels */,
+				8476177E282B92D4005A7E03 /* Views */,
 				84761779282B69E3005A7E03 /* Model */,
 				84A918CC282ADA08005AB322 /* PokemonAppApp.swift */,
-				84A918CE282ADA08005AB322 /* ContentView.swift */,
 				84A918D0282ADA09005AB322 /* Assets.xcassets */,
 				84A918D2282ADA09005AB322 /* Preview Content */,
-				84A918F6282AE59C005AB322 /* Utility.swift */,
-				84A918F8282AE5C2005AB322 /* ContentViewModel.swift */,
-				8476176F282B6886005A7E03 /* PokemonImageView.swift */,
-				84761771282B68AA005A7E03 /* PokemonImageViewModel.swift */,
-				84761773282B6944005A7E03 /* PokemonBagView.swift */,
-				84761775282B6969005A7E03 /* PokemonBagViewModel.swift */,
-				84761777282B69C1005A7E03 /* PokemonBagCellView.swift */,
-				8476177C282B8BA5005A7E03 /* PokemonDetailView.swift */,
 			);
 			path = PokemonApp;
 			sourceTree = "<group>";
