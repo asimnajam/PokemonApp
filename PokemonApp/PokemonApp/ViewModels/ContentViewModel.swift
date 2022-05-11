@@ -21,9 +21,14 @@ class ContentViewModel: ObservableObject {
         self.pokemonServices = pokemonServices
     }
     
-    
-    
     func catchPokemon() {
+        guard !PokemonModel.isContains(pokemon: pokemon) else {
+            toastMessage = "Pokemon already exist in bag"
+            return
+        }
+        pokemon.date = Date()
+        PokemonModel.store(model: pokemon)
+        
         toastMessage = "Pokemon saved in bag"
         leavePokemon()
     }
@@ -34,9 +39,6 @@ class ContentViewModel: ObservableObject {
     
     func searchPokemon() {
         let id = Int.random(in: 1...1000)
-        
-//        self.pokemon = PokemonModel(id: 1, name: "Pokemon 1", weight: 10, height: 10, imageURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", order: 1, date: Date(), baseExperience: 1, type: ["Normal"])
-        
         pokemonServices.fetchPokemon(by: "\(id)") { [weak self] pokemon in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -51,8 +53,6 @@ class ContentViewModel: ObservableObject {
                     baseExperience: pokemon.base_experience,
                     type: pokemon.types.compactMap { $0.type?.name }
                 )
-                PokemonModel.store(model: self.pokemon)
-//                Pokemon.store(obj: pokemon)
             }
             
         } failure: { error in

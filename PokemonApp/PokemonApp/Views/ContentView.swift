@@ -41,7 +41,7 @@ struct ContentView: View {
                 }
             }
             .padding(.all, 20)
-            .navigationTitle("Siwft UI App")
+            .navigationTitle("Pokemon App")
             .navigationBarItems(leading: Button(action: {
                 self.isPresentingBagView.toggle()
             }, label: {

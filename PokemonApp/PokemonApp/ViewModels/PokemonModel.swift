@@ -63,6 +63,16 @@ class PokemonModel: Object, Identifiable {
             realm.add(model, update: .all)
         })
     }
+    
+    static func getAll() -> [PokemonModel] {
+        let realm = try! Realm()
+        
+        return Array(realm.objects(PokemonModel.self))
+    }
+    
+    static func isContains(pokemon: PokemonModel) -> Bool {
+        getAll().contains(where: { $0.id == pokemon.id })
+    }
 }
 
 extension PokemonModel {
