@@ -11,13 +11,13 @@ import SwiftUI
 struct ButtonState {
     let color: Color
     let title: String
-    let enabled: Bool
+    let disabled: Bool
     
     static var initial: ButtonState {
         ButtonState(
             color: .green,
             title: "Catch It!",
-            enabled: true
+            disabled: true
         )
     }
     
@@ -25,7 +25,7 @@ struct ButtonState {
         ButtonState(
             color: .indigo,
             title: "Search Pokemon!",
-            enabled: true
+            disabled: true
         )
     }
 }
@@ -48,7 +48,7 @@ class ContentViewModel: ObservableObject {
         case .connected:
             searchPokemonButtonState = .seacrhPokemon
         case .disconnected:
-            searchPokemonButtonState = ButtonState(color: .gray, title: "No Internet!", enabled: false)
+            searchPokemonButtonState = ButtonState(color: .gray, title: "No Internet!", disabled: false)
         }
     }
     
@@ -60,7 +60,6 @@ class ContentViewModel: ObservableObject {
         pokemon.date = Date()
         PokemonModel.store(model: pokemon)
         
-        toastMessage = "Pokemon saved in bag"
         leavePokemon()
     }
     
@@ -70,37 +69,43 @@ class ContentViewModel: ObservableObject {
     
     func searchPokemon() {
         let id = Int.random(in: 1...1000)
-        pokemonServices.fetchPokemon(by: "\(id)") { [weak self] pokemon in
+        fetchPokemon(by: id)
+    }
+    
+    private func fetchPokemon(by id: Int) {
+        pokemonServices.fetchPokemon(by: "\(id)") { [weak self] result in
             guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                self.errorMessage = ""
-                self.pokemon = PokemonModel(
-                    id: id,
-                    name: pokemon.name,
-                    weight: pokemon.weight,
-                    height: pokemon.height,
-                    imageURL: pokemon.sprites?.frontDefault ?? "",
-                    order: pokemon.order,
-                    date: Date(),
-                    baseExperience: pokemon.base_experience,
-                    type: pokemon.types.compactMap { $0.type?.name }
-                )
-                let isPokemonExist = PokemonModel.isContains(pokemon: self.pokemon)
-                let color: Color = isPokemonExist ? .gray : .green
-                let title: String = isPokemonExist ? "Already Exist" : "Catch It!"
-                let isEnabled: Bool = isPokemonExist
-                self.catchButtonState = ButtonState(color: color, title: title, enabled: isEnabled)
-            }
-            
-        } failure: { error in
-            DispatchQueue.main.async {
-                if let error = error as? NetworkingError {
-                    self.errorMessage = error.description
+            switch result {
+            case let .success(pokemon):
+                DispatchQueue.main.async {
+                    self.errorMessage = ""
+                    self.pokemon = PokemonModel(
+                        id: pokemon.id,
+                        name: pokemon.name,
+                        weight: pokemon.weight,
+                        height: pokemon.height,
+                        imageURL: pokemon.sprites?.frontDefault ?? "",
+                        order: pokemon.order,
+                        date: Date(),
+                        baseExperience: pokemon.base_experience,
+                        type: pokemon.types.compactMap { $0.type?.name }
+                    )
+                    
+                    let isPokemonExist = self.isPokemonExist
+                    let color: Color = isPokemonExist ? .gray : .green
+                    let title: String = isPokemonExist ? "Already Exist" : "Catch It!"
+                    let isEnabled: Bool = isPokemonExist
+                    self.catchButtonState = ButtonState(color: color, title: title, disabled: isEnabled)
                 }
-                self.pokemon = .empty
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    if let error = error as? NetworkingError {
+                        self.errorMessage = error.description
+                    }
+                    self.leavePokemon()
+                }
             }
         }
-
     }
 }

@@ -35,6 +35,8 @@
 		84A918EA282ADA09005AB322 /* PokemonAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A918E9282ADA09005AB322 /* PokemonAppUITestsLaunchTests.swift */; };
 		84A918F7282AE59C005AB322 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A918F6282AE59C005AB322 /* Utility.swift */; };
 		84A918F9282AE5C2005AB322 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A918F8282AE5C2005AB322 /* ContentViewModel.swift */; };
+		84AF0C60282CF4DB00E51F05 /* MockPokemonServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF0C5F282CF4DB00E51F05 /* MockPokemonServices.swift */; };
+		84AF0C62282CF4FD00E51F05 /* PokemonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF0C61282CF4FD00E51F05 /* PokemonFactory.swift */; };
 		A13DDF078AF2F4AF329F31D4 /* Pods_PokemonAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC716CF9A2E26ACEEE5CC5E /* Pods_PokemonAppTests.framework */; };
 		F1545AD667A452FB0A454CB2 /* Pods_PokemonApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0462E8FF1773B68EC07258E /* Pods_PokemonApp.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +92,8 @@
 		84A918E9282ADA09005AB322 /* PokemonAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		84A918F6282AE59C005AB322 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		84A918F8282AE5C2005AB322 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		84AF0C5F282CF4DB00E51F05 /* MockPokemonServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPokemonServices.swift; sourceTree = "<group>"; };
+		84AF0C61282CF4FD00E51F05 /* PokemonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFactory.swift; sourceTree = "<group>"; };
 		9E8C5F62147359A853AEF5D0 /* Pods_PokemonApp_PokemonAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokemonApp_PokemonAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8935434F4A48ED92F39301B /* Pods-PokemonApp-PokemonAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokemonApp-PokemonAppUITests.release.xcconfig"; path = "Target Support Files/Pods-PokemonApp-PokemonAppUITests/Pods-PokemonApp-PokemonAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C1550106E8EE268D4DB63552 /* Pods-PokemonAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokemonAppTests.release.xcconfig"; path = "Target Support Files/Pods-PokemonAppTests/Pods-PokemonAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				84A918DD282ADA09005AB322 /* PokemonAppTests.swift */,
+				84AF0C5F282CF4DB00E51F05 /* MockPokemonServices.swift */,
+				84AF0C61282CF4FD00E51F05 /* PokemonFactory.swift */,
 			);
 			path = PokemonAppTests;
 			sourceTree = "<group>";
@@ -561,6 +567,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A918DE282ADA09005AB322 /* PokemonAppTests.swift in Sources */,
+				84AF0C62282CF4FD00E51F05 /* PokemonFactory.swift in Sources */,
+				84AF0C60282CF4DB00E51F05 /* MockPokemonServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,7 +822,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9A52B5VDGU;
+				DEVELOPMENT_TEAM = WR35BG86DA;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.PokemonApp.PokemonAppUITests;
@@ -833,7 +841,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9A52B5VDGU;
+				DEVELOPMENT_TEAM = WR35BG86DA;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.PokemonApp.PokemonAppUITests;

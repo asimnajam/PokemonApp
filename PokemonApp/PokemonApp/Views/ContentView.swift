@@ -32,7 +32,7 @@ struct ContentView: View {
                             action: {
                                 contentViewModel.searchPokemon()
                             }
-                        ).disabled(!contentViewModel.searchPokemonButtonState.enabled)
+                        ).disabled(!contentViewModel.searchPokemonButtonState.disabled)
                         Text("Please tap search button to see POKEMON")
                             .font(.system(size: 12.0))
                             .fontWeight(.ultraLight)
@@ -66,7 +66,7 @@ extension ContentView {
         CapsuleShapedButton(label: contentViewModel.catchButtonState.title, color: contentViewModel.catchButtonState.color) {
             contentViewModel.catchPokemon()
             showToast = true
-        }.disabled(contentViewModel.catchButtonState.enabled)
+        }.disabled(contentViewModel.catchButtonState.disabled)
     }
     
     var leavePokemon: some View {

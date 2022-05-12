@@ -19,6 +19,8 @@ class PokemonModel: Object, Identifiable {
     @Persisted var baseExperience: Int = 0
     @Persisted var type: List<String> = List<String>()
     
+    private static let realm: Realm? = try? Realm()
+    
     override init() {
         super.init()
     }
@@ -31,13 +33,6 @@ class PokemonModel: Object, Identifiable {
     }
     
     var types: String {
-//        var types: [String] = []
-//        type.forEach { value in
-//            if let type = value.type {
-//                types.append(type.name.capitalized)
-//            }
-//        }
-        
         return type.joined(separator: ", ")
     }
     
@@ -57,21 +52,32 @@ class PokemonModel: Object, Identifiable {
     }
     
     static func store(model: PokemonModel) {
-        let realm = try! Realm()
+        guard let realm = realm else {
+            assertionFailure("Realm Error")
+            return
+        }
         print(realm.configuration.fileURL!)
-        try! realm.write({
-            realm.add(model, update: .all)
-        })
+        do {
+            try realm.write({
+                realm.add(model, update: .all)
+            })
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     static func getAll() -> [PokemonModel] {
-        let realm = try! Realm()
+        guard let realm = realm else {
+            assertionFailure("Realm Error")
+            return []
+        }
         
         return Array(realm.objects(PokemonModel.self))
     }
     
     static func isContains(pokemon: PokemonModel) -> Bool {
-        getAll().contains(where: { $0.id == pokemon.id })
+        let pokemons = getAll()
+        return pokemons.contains(where: { $0.id == pokemon.id })
     }
 }
 
